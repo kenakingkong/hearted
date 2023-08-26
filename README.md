@@ -7,12 +7,14 @@
 - [ ] [nextjs](https://nextjs.org/docs)
 - [ ] [convex](https://docs.convex.dev/home)
 - [ ] [convex react](https://docs.convex.dev/client/react/)
+- [ ] [indexed db](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
 
 ## todo (p1 - basic features)
 - [x] mid-fi design
-- [ ] push to github
+- [x] push to github
 - [x] mvp no backend
-- [ ] add indexdb to cache entry data (so we aren't fetching every time!)
+- [x] add indexdb to cache entry data (so we aren't fetching every time!)
+- [x] indexedb -> add "isFetchable" to stored data
 - [ ] add mark "done" functionality
 - [ ] collection cover photo generator
 - [ ] tiny share url function
@@ -32,14 +34,18 @@
 ## todo (p4 - build it out more)
 - [ ] add middleware for list view policies
 - [ ] add permissions for mark "done" buttons
+- [ ] let users "refresh" the data
 
 ## todo (p5 - ui/ux upgrades )
 - [ ] add icon library
 - [ ] add animations
+- [ ] better load for entries
 - [ ] drag to reorder
 - [ ] meta tags
 - [ ] unfurl card
 - [ ] favicon
 
 ## todo (p6 - next level features)
+- [ ] deploy to vercel
+- [ ] buy domain
 - [ ] turn into chrome extension

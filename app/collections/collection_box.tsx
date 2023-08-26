@@ -1,20 +1,14 @@
 import Link from "next/link";
 import ICollection from "../../types/collection";
 
-interface ICollectionBoxProps {
-  key: string;
-  collection: ICollection;
-}
-
-const CollectionBox: React.FC<ICollectionBoxProps> = ({ key, collection }) => {
+const CollectionBox: React.FC<ICollection> = ({ id, title }) => {
   return (
     <Link
-      href={`/collections/${collection.id}`}
-      key={key}
+      href={`/collections/${id}`}
       className="w-72 h-96 border-2 border-black p-4 space-y-2"
     >
       <div className="w-full h-72 border-2 border-black"></div>
-      <p className="font-medium text-lg">{collection.title}</p>
+      <p className="font-medium text-lg">{title}</p>
     </Link>
   );
 };

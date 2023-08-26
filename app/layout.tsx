@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Epilogue } from "next/font/google";
 import Header from "./(components)/header";
+import { AppContextProvider } from "./(context)/context";
 
 const epilogue = Epilogue({ subsets: ["latin"] });
 
@@ -20,7 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${epilogue.className} min-h-screen`}>
         <Header />
-        <main className="max-w-5xl mx-auto p-4">{children}</main>
+        <AppContextProvider>
+          <main className="max-w-5xl mx-auto p-4">{children}</main>
+        </AppContextProvider>
       </body>
     </html>
   );

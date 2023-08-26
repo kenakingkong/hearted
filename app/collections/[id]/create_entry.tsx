@@ -1,16 +1,19 @@
 import { FormEventHandler } from "react";
+import { useAppContext } from "../../(context)/context";
 
-interface INewEntryProps {
-  onCreate: (link: string) => void;
+interface ICreateEntryProps {
+  collectionId: string;
 }
 
-const CreateEntry: React.FC<INewEntryProps> = ({ onCreate }) => {
+const CreateEntry: React.FC<ICreateEntryProps> = ({ collectionId }) => {
+  const { createEntry } = useAppContext();
+
   const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     if (!(event.target instanceof HTMLFormElement)) return;
     const newLink = event.target.link.value;
     event.target.link.value = "";
-    onCreate(newLink);
+    createEntry(newLink, collectionId);
   };
 
   return (

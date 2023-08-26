@@ -4,7 +4,7 @@ import { useReducer } from "react";
 import ICollection from "../../types/collection";
 import IEntry from "../../types/entry";
 
-interface IAppReducerState {
+export interface IAppReducerState {
   collections: ICollection[];
   entries: IEntry[];
 }
@@ -73,7 +73,7 @@ const tempEntries = [
   },
 ];
 
-const defaultAppReducerState: IAppReducerState = {
+export const defaultAppReducerState: IAppReducerState = {
   collections: tempCollections,
   entries: tempEntries,
 };

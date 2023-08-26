@@ -1,12 +1,11 @@
 "use client";
 
 import { FormEventHandler, MouseEventHandler, useRef, useState } from "react";
+import { useAppContext } from "../(context)/context";
 
-interface INewCollectionBoxProps {
-  onCreate: (title: string) => void;
-}
+const CreateCollection = () => {
+  const { createCollection } = useAppContext();
 
-const NewCollectionBox: React.FC<INewCollectionBoxProps> = ({ onCreate }) => {
   const [showForm, setShowForm] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -17,7 +16,7 @@ const NewCollectionBox: React.FC<INewCollectionBoxProps> = ({ onCreate }) => {
 
     const newCollectionName = event.target.collection_name.value;
     if (inputRef.current) inputRef.current.value = "";
-    onCreate(newCollectionName);
+    createCollection(newCollectionName);
     setShowForm(false);
   };
 
@@ -64,4 +63,4 @@ const NewCollectionBox: React.FC<INewCollectionBoxProps> = ({ onCreate }) => {
   );
 };
 
-export default NewCollectionBox;
+export default CreateCollection;
