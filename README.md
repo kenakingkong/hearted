@@ -17,8 +17,6 @@
 - [x] indexedb -> add "isFetchable" to stored data
 - [ ] add mark "done" functionality
 - [ ] collection cover photo generator
-- [ ] tiny share url function
-
 ## todo (p2 - add users to convex)
 - [ ] add convex
 - [ ] add users table to convex
@@ -30,11 +28,12 @@
 - [ ] add entries table to convex
 - [ ] edit/delete collection functionality
 - [ ] edit/delete entry functionality
+- [ ] let users "refresh" the data
 
 ## todo (p4 - build it out more)
 - [ ] add middleware for list view policies
 - [ ] add permissions for mark "done" buttons
-- [ ] let users "refresh" the data
+- [ ] tiny share url function
 
 ## todo (p5 - ui/ux upgrades )
 - [ ] add icon library

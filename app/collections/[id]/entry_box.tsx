@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import IEntry from "../../../types/entry";
-import MetaDataUtils from "../../(utils)/metadata";
 import { useAppContext } from "../../(context)/context";
 interface ILinkData {
   title: string;
@@ -11,41 +10,11 @@ interface ILinkData {
 }
 
 const EntryBox: React.FC<IEntry> = ({ id, link }) => {
-  const { getEntryMetaData, storeEntryMetaData } = useAppContext();
-
   const [data, setData] = useState<ILinkData | null>(null);
+  const { findOrFetchMetaData } = useAppContext();
 
   useEffect(() => {
-    // let isMounted = true;
-    const fetchMetaData = async () => {
-      getEntryMetaData(id)
-        .then((data: MetaDataUtils.IMetaValues) => {
-          if (data) {
-            // if (isMounted) {
-            setData(MetaDataUtils.parseMetaDataValues(data));
-            // }
-          } else {
-            throw new Error();
-          }
-        })
-        .catch((err: any) => {
-          MetaDataUtils.fetchMetaData(link)
-            .then((data: MetaDataUtils.IMetaValues) => {
-              // if (isMounted) {
-              let parsedMetaData = MetaDataUtils.parseMetaDataValues(data);
-              setData(parsedMetaData);
-              storeEntryMetaData({ id: id, ...parsedMetaData });
-              // }
-            })
-            .catch((err: any) => console.log(err));
-        });
-    };
-
-    fetchMetaData();
-
-    return () => {
-      //isMounted = false;
-    };
+    findOrFetchMetaData(id, link, (result) => setData(result));
   }, []);
 
   const EntryImage = (

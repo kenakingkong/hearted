@@ -13,13 +13,19 @@ import {
   useAppReducer,
 } from "./reducer";
 import IndexedDBUtils from "../(utils)/indexed_db";
+import MetaDataUtils from "../(utils)/metadata";
+import IEntry from "../../types/entry";
 
 interface IAppContextProps {
   state: IAppReducerState;
   databaseRef?: MutableRefObject<any>;
-  storeEntryMetaData: (linkData: any) => void;
-  getEntryMetaData: (id: number) => any;
-  updateEntryMetaData: (linkData: any) => void;
+  findOrFetchMetaData: (
+    id: number,
+    link: string,
+    callback: (data: any) => void
+  ) => void;
+  updateMetaData: (linkData: any) => void;
+  generatePhotoFromEntries: (id: number) => Promise<unknown>;
   createEntry: (link: string, collectionId: string) => void;
   createCollection: (title: string) => void;
 }
@@ -27,9 +33,9 @@ interface IAppContextProps {
 const AppContext = createContext<IAppContextProps>({
   state: defaultAppReducerState,
   databaseRef: undefined,
-  storeEntryMetaData: () => {},
-  getEntryMetaData: () => {},
-  updateEntryMetaData: () => {},
+  updateMetaData: () => {},
+  findOrFetchMetaData: () => {},
+  generatePhotoFromEntries: () => new Promise((resolve) => resolve(true)),
   createEntry: () => {},
   createCollection: () => {},
 });
@@ -55,13 +61,59 @@ export const AppContextProvider: React.FC<IAppContextProviderProps> = (
    *
    */
 
-  const getEntryMetaData = (id: number) =>
-    IndexedDBUtils.getStoredLinkMetaData(databaseRef, id);
+  const findOrFetchMetaData = async (
+    id: number,
+    link: string,
+    callback: (data: any) => void
+  ) => {
+    IndexedDBUtils.getStoredLinkMetaData(databaseRef, id)
+      .then((data: any) => {
+        if (data) {
+          callback(MetaDataUtils.parseMetaDataValues(data));
+        } else {
+          throw new Error();
+        }
+      })
+      .catch(() => {
+        MetaDataUtils.fetchMetaData(link)
+          .then((data: MetaDataUtils.IMetaValues) => {
+            let parsedMetaData = MetaDataUtils.parseMetaDataValues(data);
+            callback(parsedMetaData);
+            IndexedDBUtils.addLinkMetaData(databaseRef, {
+              id: id,
+              ...parsedMetaData,
+            });
+          })
+          .catch((err: any) => console.log(err));
+      });
+  };
 
-  const storeEntryMetaData = (data: any) =>
-    IndexedDBUtils.addLinkMetaData(databaseRef, data);
+  const updateMetaData = (id: string) => {
+    // fetch data
+    // update entry!
+  };
 
-  const updateEntryMetaData = (id: string) => {};
+  const generatePhotoFromEntries = async (id: number) => {
+    const entries = state.entries.filter(
+      (entry: IEntry) => entry.collectionId === id
+    );
+
+    if (entries.length === 0) {
+      return new Promise((resolve) => resolve([]));
+    }
+
+    return await Promise.all(
+      entries.map(async (entry: IEntry) => {
+        return new Promise((resolve) =>
+          findOrFetchMetaData(entry.id, entry.link, (data) =>
+            resolve(data.image)
+          )
+        );
+      })
+    ).then((value: unknown[]) => {
+      return value.filter((v: any) => !!v).slice(0, 4);
+    });
+  };
 
   /**
    *
@@ -104,9 +156,9 @@ export const AppContextProvider: React.FC<IAppContextProviderProps> = (
         databaseRef,
 
         // indexed db actions
-        storeEntryMetaData,
-        getEntryMetaData,
-        updateEntryMetaData,
+        findOrFetchMetaData,
+        updateMetaData,
+        generatePhotoFromEntries,
 
         // db actions
         createEntry,
