@@ -69,7 +69,7 @@ export const AppContextProvider: React.FC<IAppContextProviderProps> = (
     IndexedDBUtils.getStoredLinkMetaData(databaseRef, id)
       .then((data: any) => {
         if (data) {
-          callback(MetaDataUtils.parseMetaDataValues(data));
+          callback(data);
         } else {
           throw new Error();
         }

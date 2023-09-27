@@ -71,6 +71,19 @@ const tempEntries = [
     link: "https://alythuh.com/products/valentine-stun-gun",
     collectionId: 2,
   },
+  {
+    id: 6,
+    link: "https://lisasaysgah.com/products/voco-sneakers-black?variant=42353530503348",
+    collectionId: 1,
+  },{
+    id: 7,
+    link: "https://voight.com/products/mihvn-cloud-v-kini-bottom-in-lilac",
+    collectionId: 2
+  }, {
+    id: 8,
+    link: "https://voight.com/collections/heartbreaker-2023/products/hayley-bustier-set-in-red",
+    collectionId: 2
+  }
 ];
 
 export const defaultAppReducerState: IAppReducerState = {

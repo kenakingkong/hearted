@@ -26,7 +26,7 @@ const CreateEntry: React.FC<ICreateEntryProps> = ({ collectionId }) => {
         name="link"
         type="url"
         className="border-2 border-black font-medium text-lg p-2 w-full"
-        placeholder="+ paste a link & press enter"
+        placeholder="paste a link & press enter"
       />
     </form>
   );

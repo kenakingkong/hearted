@@ -1,4 +1,4 @@
-# oosoom
+# hearted
 
 ## run
 ``` npx run dev ```
@@ -16,7 +16,7 @@
 - [x] add indexdb to cache entry data (so we aren't fetching every time!)
 - [x] indexedb -> add "isFetchable" to stored data
 - [ ] add mark "done" functionality
-- [ ] collection cover photo generator
+- [x] collection cover photo generator
 ## todo (p2 - add users to convex)
 - [ ] add convex
 - [ ] add users table to convex

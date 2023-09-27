@@ -7,7 +7,7 @@ import { AppContextProvider } from "./(context)/context";
 const epilogue = Epilogue({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "oosoom",
+  title: "hearted",
   description:
     "Out of Sight, Out of Mind. A place to store all the things you aren't ready to buy yet.",
 };

@@ -1,7 +1,7 @@
 import { MutableRefObject, RefObject } from "react";
 
 namespace IndexedDBUtils {
-  const DB_NAME = "MY_OOSOOM_DB";
+  const DB_NAME = "MY_HEARTED_DB";
   const LINK_STORE_NAME = "LINKS_STORE";
   const LINK_STORE_ID_INDEX = "LINKS_STORE_ID";
 
@@ -119,6 +119,15 @@ namespace IndexedDBUtils {
   export const addLinkMetaData = async (dbRef: RefObject<any>, value: any) => {
     return new Promise((resolve, reject) => {
       if (dbRef.current) {
+
+        /**
+         * check if already stored?
+         * and then replace it?
+         * or persist the old one??
+         * probably repalce though
+         */
+
+
         let transaction = dbRef.current
           .transaction([LINK_STORE_NAME], READ_WRITE)
           .objectStore(LINK_STORE_NAME)
